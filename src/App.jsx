@@ -1,15 +1,24 @@
 import Taskform from "./Components/Taskform";
 import TaskList from "./Components/TaskList";
 import Progresstracker from "./Components/Progresstracker";
-
-
+import { useState } from "react";
+import { useEffect} from "react"
 
 function App() {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks))
+  });
+
+  const addTask = (task) => {
+    setTasks([...tasks,task]);
+  }
   return(
     <div>
       <h1>Task Focus</h1>
       <p>My friendly TaskManager</p>
-      <Taskform />
+      <Taskform addTask = {addTask}/>
       <TaskList />
       <Progresstracker />
       <button>Clear all tasks</button>
